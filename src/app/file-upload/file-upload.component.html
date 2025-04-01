@@ -1,1 +1,37 @@
-<p>file-upload works!</p>
+<div class="container mt-5">
+    <div class="card shadow-lg rounded-lg border-0">
+      <div class="card-header">
+        <h4>File Upload</h4>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="uploadFile()">
+          <div class="form-group">
+            <label for="fileInput" class="font-weight-bold">Choose a file:</label>
+            <input
+              type="file"
+              id="fileInput"
+              class="form-control"
+              (change)="onFileSelect($event)"
+              required
+            />
+          </div>
+  
+          <button
+            type="submit"
+            class="btn btn-primary btn-block mt-3"
+            [disabled]="!selectedFile || isLoading"
+          >
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
+            Upload File
+          </button>
+  
+          <div *ngIf="successMessage" class="alert alert-success mt-3">
+            {{ successMessage }}
+          </div>
+          <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+            {{ errorMessage }}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>  

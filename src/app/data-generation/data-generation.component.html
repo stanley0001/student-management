@@ -1,1 +1,40 @@
-<p>data-generation works!</p>
+<div class="container mt-5">
+    <div class="card shadow-lg rounded-lg border-0">
+      <div class="card-header">
+        <h4>Data Generation</h4>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="generateData()">
+          <div class="form-group">
+            <label for="recordCount" class="font-weight-bold">Enter Number of Records:</label>
+            <input
+              type="number"
+              id="recordCount"
+              class="form-control"
+              [(ngModel)]="recordCount"
+              name="recordCount"
+              required
+              min="0"
+              placeholder="Enter number of records to generate"
+            />
+          </div>
+  
+          <button
+            type="submit"
+            class="btn btn-primary btn-block mt-3"
+            [disabled]="recordCount <= 0 || isLoading"
+          >
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
+            Generate Data
+          </button>
+  
+          <div *ngIf="successMessage" class="alert alert-success mt-3">
+            {{ successMessage }}
+          </div>
+          <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+            {{ errorMessage }}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>  

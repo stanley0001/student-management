@@ -1,1 +1,34 @@
-<p>student-management works!</p>
+<div class="container mt-5">
+    <div class="card shadow-lg border-0">
+      <div class="card-header">
+        <h4>Student Management</h4>
+      </div>
+      <div class="card-body">
+        <button class="btn btn-primary mb-3 action-button" (click)="addStudent()">+ Add Student</button>
+        
+        <div class="table-container">
+          <table class="table table-bordered table-striped">
+            <thead class="bg-dark text-white">
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Course</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let student of students; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ student.name }}</td>
+                <td>{{ student.course }}</td>
+                <td>
+                  <button class="btn btn-sm btn-warning action-button" (click)="editStudent(i)">Edit</button>
+                  <button class="btn btn-sm btn-danger action-button" (click)="deleteStudent(i)">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>

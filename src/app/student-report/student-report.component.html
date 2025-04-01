@@ -1,1 +1,28 @@
-<p>student-report works!</p>
+<div class="container mt-5">
+    <div class="card shadow-lg border-0">
+      <div class="card-header bg-primary text-white text-center">
+        <h4>Student Reports</h4>
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered table-striped">
+          <thead class="bg-dark text-white">
+            <tr>
+              <th>#</th>
+              <th>Student Name</th>
+              <th>Course</th>
+              <th>Grade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let report of studentReports; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ report.name }}</td>
+              <td>{{ report.course }}</td>
+              <td>{{ report.grade }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,65 @@
+/* data-generation.component.css */
+.container {
+    max-width: 90%;
+    margin: auto;
+  }
+  
+  .card {
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+  .card-header {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    padding: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+  
+  .card-body {
+    padding: 2rem;
+    background-color: #f8f9fa;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  button {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 8px;
+  }
+  
+  button:hover {
+    transform: scale(1.05);
+    transition: 0.3s ease-in-out;
+  }
+  
+  button:disabled {
+    background-color: #d6d6d6;
+  }
+  
+  .alert {
+    border-radius: 10px;
+    font-weight: bold;
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  .alert-success {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  .alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  

@@ -1,0 +1,62 @@
+.container {
+    max-width: 90%;
+    margin: auto;
+  }
+  
+  .card {
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+  .card-header {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    padding: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+  
+  .card-body {
+    padding: 2rem;
+    background-color: #f8f9fa;
+  }
+  
+  .table-container {
+    overflow-x: auto;
+    margin-top: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  table {
+    width: 100%;
+    border-radius: 10px;
+    background: white;
+  }
+  
+  th {
+    background: #f1f3f5;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 1rem;
+  }
+  
+  td {
+    padding: 1rem;
+  }
+  
+  button.action-button {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  button.action-button:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }

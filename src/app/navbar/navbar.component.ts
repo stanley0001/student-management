@@ -22,6 +22,6 @@ export class NavbarComponent {
   }
   toggleMenu() {
     const navLinks = document.querySelector('.nav-links');
-    // navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-  }
+    //TODO, get menu from the collappse
+   }
 }
