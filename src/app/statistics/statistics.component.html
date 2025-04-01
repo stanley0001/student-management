@@ -1,0 +1,28 @@
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+    <ng-container *ngFor="let card of cards">
+      <div *ngIf="hasPermission(card.permission)" class="col">
+        <div class="card card-clickable" (click)="navigateTo(card.route)">
+          <div class="card-body p-4">
+            <div class="row">
+              <div class="col-8">
+                <div class="numbers">
+                  <p class="text-sm mb-0 text-uppercase font-weight-bold">{{ card.title }}</p>
+                  <h5 class="font-weight-bolder">
+                    <span appCountUp [startVal]="0" [endVal]="card.value" [duration]="2"></span>
+                  </h5>
+                </div>
+              </div>
+              <div class="col-4 text-end">
+                <div class="icon icon-shape shadow text-center rounded-circle" [ngClass]="card.iconBg">
+                  <i [class]="card.iconClass + ' text-lg opacity-10'" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    
+  </div>
+  <app-loader [isLoading]="isProcessing"></app-loader>
+  

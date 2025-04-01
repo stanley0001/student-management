@@ -1,0 +1,59 @@
+<div class="auth-container">
+    <div class="auth-card">
+        <img src="/assets/img/compulynx-logo.png" alt="Logo" class="logo" />
+       
+      <div *ngIf="view === 'login'">
+        <h3>Login</h3>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Username</mat-label>
+          <input matInput type="text" [(ngModel)]="username" required/>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" [(ngModel)]="password" required/>
+        </mat-form-field>
+  
+        <button mat-raised-button color="primary" class="full-width" (click)="login()">Submit</button>
+        <a (click)="switchView('reset')">Forgot Password?</a>
+      </div>
+  
+      <div *ngIf="view === 'reset'">
+        <h3>Reset Password</h3>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" [(ngModel)]="email" required/>
+        </mat-form-field>
+  
+        <button mat-raised-button color="primary" class="full-width" (click)="requestReset()">Request Reset</button>
+        <a (click)="switchView('login')">Back to Login</a>
+      </div>
+      <div *ngIf="view === 'otp'">
+        <h3>Enter One Time Code</h3>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>OTP</mat-label>
+          <input matInput type="text" [(ngModel)]="otp" required/>
+        </mat-form-field>
+  
+        <button mat-raised-button color="primary" class="full-width" (click)="validateOtp()">Validate</button>
+        <a (click)="switchView('login')">Back</a>
+      </div>
+  
+      <div *ngIf="view === 'passwordChange'">
+        <h3>Change Password</h3>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>New Password</mat-label>
+          <input matInput type="password" [(ngModel)]="newPassword" required/>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Confirm Password</mat-label>
+          <input matInput type="password" [(ngModel)]="confirmPassword" required/>
+        </mat-form-field>
+  
+        <button mat-raised-button color="primary" class="full-width" (click)="changePassword()">Change Password</button>
+        <a (click)="switchView('login')">Back to Login</a>
+      </div>
+    </div>
+  </div>
+  <app-loader [isLoading]="isProcessing"></app-loader>
