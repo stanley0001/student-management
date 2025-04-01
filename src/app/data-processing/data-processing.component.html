@@ -4,8 +4,8 @@
         <h4>Data Processing</h4>
       </div>
       <div class="card-body">
-        <form (ngSubmit)="processData()">
-          <div class="form-group">
+        <form>
+          <!-- <div class="form-group">
             <label for="fileUpload" class="font-weight-bold">Upload Data File:</label>
             <input
               type="file"
@@ -14,12 +14,17 @@
               (change)="onFileSelect($event)"
               required
             />
-          </div>
+          </div> -->
   
-          <button
+          <!-- <button
             type="submit"
             class="btn btn-primary btn-block mt-3"
             [disabled]="!selectedFile || isLoading"
+          > -->
+          <button
+            (click)="processData($event)"
+            class="btn btn-primary btn-block mt-3"
+            [disabled]="isLoading"
           >
             <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
             Process Data

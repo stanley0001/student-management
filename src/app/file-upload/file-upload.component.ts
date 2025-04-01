@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { HttpService } from '../http.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-file-upload',
@@ -13,6 +15,8 @@ export class FileUploadComponent {
   isLoading: boolean = false;
   successMessage: string = '';
   errorMessage: string = '';
+  constructor(private http: HttpService,private snackBar: MatSnackBar) {}
+  
 
   onFileSelect(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -20,18 +24,26 @@ export class FileUploadComponent {
       this.selectedFile = input.files[0];
     }
   }
-
-  uploadFile() {
-    if (!this.selectedFile) return;
-
+  uploadFile(event: Event) {
+    event.preventDefault();
     this.isLoading = true;
     this.successMessage = '';
     this.errorMessage = '';
-
-    setTimeout(() => {
-      this.isLoading = false;
-      this.successMessage = `"${this.selectedFile?.name}" uploaded successfully!`;
-    }, 2000);
+    let processId="1";
+    this.http.uploadFileToDatabase(processId).subscribe((response: any) => {
+      console.log(response);
+      this.snackBar.open(response.message, 'Close', { duration: 3000 });
+      // this.successMessage=response.message;
+      //Handle success here
+      this.isLoading=false;
+    },
+      (err: any) => {
+        this.isLoading=false;
+        err?.error?.message?this.snackBar.open(err?.error?.message, 'Close', { duration: 3000 }):this.snackBar.open('An unexpected error occurred, please try again.', 'Close', { duration: 3000 });
+      }
+    );
+   
   }
+  
 }
 

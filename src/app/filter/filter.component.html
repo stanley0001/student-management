@@ -1,0 +1,14 @@
+<div class="search-container">
+    <input type="text" class="form-control" placeholder="Search by Student ID" [(ngModel)]="searchModel.studentId">
+  
+    <select class="form-control" [(ngModel)]="searchModel.class">
+      <option value="">Filter by Class</option>
+      <option *ngFor="let cls of classOptions" [value]="cls">{{ cls }}</option>
+    </select>
+  
+    <input type="date" class="form-control" [(ngModel)]="searchModel.startDate">
+    <input type="date" class="form-control" [(ngModel)]="searchModel.endDate">
+  
+    <button class="btn btn-primary" (click)="applyFilters()">Search</button>
+    <button class="btn btn-success" (click)="exportToExcel(data)">Export to Excel</button>
+</div>

@@ -1,0 +1,65 @@
+<div class="student-detail-container">
+    <div class="card">
+      <div class="card-header">
+        <h2>Student Details</h2>
+      </div>
+      <div class="card-body">
+        <div class="student-photo">
+          <img *ngIf="student.photoPath" [src]="student.photoPath" alt="Student Photo" class="photo-img"/>
+          <div *ngIf="!student.photoPath" class="avatar">{{ student.firstName[0] }}{{ student.lastName[0] }}</div>
+        </div>
+  
+        <form [formGroup]="studentForm" (ngSubmit)="updateStudent()">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="studentId">Student ID</label>
+              <input type="text" id="studentId" class="form-control" formControlName="studentId" readonly />
+            </div>
+  
+            <div class="form-group col-md-6">
+              <label for="fullName">Full Name</label>
+              <input type="text" id="fullName" class="form-control" formControlName="fullName" readonly />
+            </div>
+          </div>
+  
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="dob">Date of Birth</label>
+              <input type="date" id="dob" class="form-control" formControlName="dob" />
+            </div>
+  
+            <div class="form-group col-md-6">
+              <label for="class">Class</label>
+              <input type="text" id="class" class="form-control" formControlName="class" />
+            </div>
+          </div>
+  
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="score">Score</label>
+              <input type="number" id="score" class="form-control" formControlName="score" />
+            </div>
+  
+            <div class="form-group col-md-6">
+              <label for="status">Status</label>
+              <select id="status" class="form-control" formControlName="status">
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+              </select>
+            </div>
+          </div>
+  
+          <div class="form-group">
+            <label for="photo">Upload Photo</label>
+            <input type="file" id="photo" class="form-control" (change)="onFileChange($event)" />
+          </div>
+  
+          <div class="button-group">
+            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="button" class="btn btn-danger" (click)="deleteStudent()">Delete</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  

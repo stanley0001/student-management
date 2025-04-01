@@ -23,7 +23,7 @@ export class StatisticsComponent {
     {
       title: 'Students',
       value: this.statsData.students,
-      route: '/dashboard/student-report',
+      route: '/dashboard/student-management',
       iconClass: 'ni ni-money-coins',
       iconBg: 'bg-gradient-primary shadow-primary',
       permission: 'CAN_VIEW_USERS',
@@ -48,12 +48,14 @@ export class StatisticsComponent {
   loadStats() {
     this.isProcessing=true;
     this.http.getDashStats().subscribe((data: any) => {
-      this.statsData = data?.data;
+      // this.statsData = data?.data;
+      this.statsData.students = data?.data;
+      
       this.cards = [
         {
           title: 'Students',
           value: this.statsData.students,
-          route: '/dashboard/student-report',
+          route: '/dashboard/student-management',
           iconClass: 'ni ni-money-coins',
           iconBg: 'bg-gradient-primary shadow-primary',
           permission: 'CAN_VIEW_USERS',

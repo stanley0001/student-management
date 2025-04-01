@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { HttpService } from '../http.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-data-processing',
@@ -13,6 +15,7 @@ export class DataProcessingComponent {
   isLoading: boolean = false;
   successMessage: string = '';
   errorMessage: string = '';
+  constructor(private http: HttpService,private snackBar: MatSnackBar) {}
 
   onFileSelect(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -21,20 +24,24 @@ export class DataProcessingComponent {
     }
   }
 
-  processData() {
-    if (!this.selectedFile) {
-      alert('Please select a file first.');
-      return;
-    }
-
+  processData(event: Event) {
+    event.preventDefault();
     this.isLoading = true;
     this.successMessage = '';
     this.errorMessage = '';
-
-    // Simulate backend processing (Replace with actual API call)
-    setTimeout(() => {
-      this.isLoading = false;
-      this.successMessage = `File "${this.selectedFile?.name}" processed successfully!`;
-    }, 2000);
+    let processId="1";
+    this.http.processDataToCvs(processId).subscribe((response: any) => {
+      console.log(response);
+      this.snackBar.open(response.message, 'Close', { duration: 3000 });
+      // this.successMessage=response.message;
+      //Handle success here
+      this.isLoading=false;
+    },
+      (err: any) => {
+        this.isLoading=false;
+        err?.error?.message?this.snackBar.open(err?.error?.message, 'Close', { duration: 3000 }):this.snackBar.open('An unexpected error occurred, please try again.', 'Close', { duration: 3000 });
+      }
+    );
+   
   }
 }

@@ -9,6 +9,7 @@ import { DataGenerationComponent } from './data-generation/data-generation.compo
 import { DataProcessingComponent } from './data-processing/data-processing.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { StudentReportComponent } from './student-report/student-report.component';
+import { StudentComponent } from './student/student.component';
 
 export const routes: Routes = [
 {
@@ -52,6 +53,9 @@ export const routes: Routes = [
     },
     { path: 'student-management', 
       component: StudentManagementComponent
+    },
+    { path: 'student/:id', 
+      component: StudentComponent
     },
     { path: 'student-report', 
       component: StudentReportComponent

@@ -4,8 +4,8 @@
         <h4>File Upload</h4>
       </div>
       <div class="card-body">
-        <form (ngSubmit)="uploadFile()">
-          <div class="form-group">
+        <form>
+          <!-- <div class="form-group">
             <label for="fileInput" class="font-weight-bold">Choose a file:</label>
             <input
               type="file"
@@ -14,15 +14,20 @@
               (change)="onFileSelect($event)"
               required
             />
-          </div>
-  
-          <button
+          </div> -->
+          <!-- <button
             type="submit"
             class="btn btn-primary btn-block mt-3"
             [disabled]="!selectedFile || isLoading"
-          >
+          > -->
+          <button
+          type="submit"
+          (click)="uploadFile($event)"
+          class="btn btn-primary btn-block mt-3"
+          [disabled]="isLoading"
+        >
             <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
-            Upload File
+            Upload File to DB
           </button>
   
           <div *ngIf="successMessage" class="alert alert-success mt-3">
