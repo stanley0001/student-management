@@ -29,10 +29,11 @@
                 <td>{{ student.score }}</td>
                 <td>
                   <span [ngClass]="{'text-success': student.status === '1.0', 'text-danger': student.status !== '1.0'}">
-                    {{ student.status=="1.0"?'ACTIVE':'INACTIVE' }}
+                    {{ student.status=="1.0"?'ACTIVE':'DELETED' }}
                   </span>
                 </td>
                 <td>
+                  <button class="btn btn-sm btn-warning action-button" (click)="editStudent(student.studentId)">View</button>
                   <button class="btn btn-sm btn-warning action-button" (click)="editStudent(student.studentId)">Edit</button>
                   <button class="btn btn-sm btn-danger action-button" (click)="deleteStudent(i)">Delete</button>
                 </td>

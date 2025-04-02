@@ -5,7 +5,7 @@
       </div>
       <div class="card-body">
         <div class="student-photo">
-          <img *ngIf="student.photoPath" [src]="student.photoPath" alt="Student Photo" class="photo-img"/>
+          <img *ngIf="student.photoPath" [src]="studentPhoto" alt="Student Photo" class="photo-img"/>
           <div *ngIf="!student.photoPath" class="avatar">{{ student.firstName[0] }}{{ student.lastName[0] }}</div>
         </div>
   
@@ -17,8 +17,13 @@
             </div>
   
             <div class="form-group col-md-6">
-              <label for="fullName">Full Name</label>
-              <input type="text" id="fullName" class="form-control" formControlName="fullName" readonly />
+              <label for="firstName">First Name</label>
+              <input type="text" id="firstName" class="form-control" formControlName="firstName"/>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="lastName">Last Name</label>
+              <input type="text" id="lastName" class="form-control" formControlName="lastName"/>
             </div>
           </div>
   
@@ -43,8 +48,10 @@
             <div class="form-group col-md-6">
               <label for="status">Status</label>
               <select id="status" class="form-control" formControlName="status">
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
+                <option value="1.0">Active</option>
+                <option value="1">Active</option>
+                <option value="0.0">Deleted</option>
+                <option value="0">Deleted</option>
               </select>
             </div>
           </div>

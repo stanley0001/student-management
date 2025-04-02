@@ -78,10 +78,7 @@
     border-radius: 4px;
     border: 1px solid #ddd;
   }
-  
-  input[type="number"] {
-    -moz-appearance: textfield;
-  }
+
   
   button {
     width: 48%;
@@ -114,4 +111,3 @@
     gap: 10px;
     margin-top: 20px;
   }
-  

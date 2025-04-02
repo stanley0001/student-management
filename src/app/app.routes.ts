@@ -58,7 +58,7 @@ export const routes: Routes = [
       component: StudentComponent
     },
     { path: 'student-report', 
-      component: StudentReportComponent
+      component: StudentManagementComponent
     },
     { path: '**', redirectTo: '' }
     ]

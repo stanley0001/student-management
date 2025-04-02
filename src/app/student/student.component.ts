@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { HttpService } from '../http.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
 
 interface Student {
   id: number;          
@@ -27,21 +28,22 @@ export class StudentComponent implements OnInit {
   studentForm!: FormGroup;
   student: Student = {} as Student;
   selectedFile: File | null = null;
+  studentPhoto={}
 
   constructor(
     private fb: FormBuilder,
-    private studentService: HttpService,  // Your HTTP service for making API calls
-    private route: ActivatedRoute
+    private studentService: HttpService, 
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
-    // Get student ID from route params
     const studentId = this.route.snapshot.paramMap.get('id');
     if (studentId) {
       this.getStudent(studentId);
     }
+    // this.student.photoPath="C:\var\log\applications\API\StudentPhotos\1_pa.png";
 
-    // Initialize the form group
     this.studentForm = this.fb.group({
       studentId: ['', Validators.required],
       firstName: ['', Validators.required],
@@ -50,41 +52,44 @@ export class StudentComponent implements OnInit {
       class: ['', Validators.required],
       score: [0, Validators.required],
       status: ["Active", Validators.required],
-      photoPath: [''],
+      photoPath: '',
     });
   }
 
-  // Fetch student data by ID
   getStudent(id: string): void {
     this.studentService.getStudentById(id).subscribe((response) => {
       this.student = response.data as Student;
-      // Populate the form with student data
       this.studentForm.patchValue({
+        id: this.student.studentId,
         studentId: this.student.studentId,
         firstName: this.student.firstName,
         lastName: this.student.lastName,
         dob: this.student.dob,
         class: this.student.class,
         score: this.student.score,
-        status: this.student.status
+        status: this.student.status,
+        photoPath: this.student.photoPath
       });
+      this.loadFile(this.student.photoPath)
     });
   }
 
-  // Handle file selection (photo upload)
+  
   onFileChange(event: any): void {
     const file = event.target.files[0];
     if (file && (file.type === 'image/jpeg' || file.type === 'image/png') && file.size <= 5 * 1024 * 1024) {
       this.selectedFile = file;
+      console.log("uploading file ")
+      this.uploadPhoto();
     } else {
       alert('Invalid file. Only JPEG/PNG files under 5MB are allowed.');
       this.selectedFile = null;
     }
   }
 
-  // Update student data (with optional photo upload)
   updateStudent(): void {
     const formData = new FormData();
+    formData.append('id', this.studentForm.value.studentId);
     formData.append('studentId', this.studentForm.value.studentId);
     formData.append('firstName', this.studentForm.value.firstName);
     formData.append('lastName', this.studentForm.value.lastName);
@@ -92,38 +97,47 @@ export class StudentComponent implements OnInit {
     formData.append('class', this.studentForm.value.class);
     formData.append('score', this.studentForm.value.score);
     formData.append('status', this.studentForm.value.status);
+    formData.append('photoPath', this.studentForm.value.photoPath);
+    //Use new path to update the file or update with student details
+    // if (this.selectedFile) {
+    //   const filename = `${this.student.studentId}-${this.selectedFile.name}`;
+    //   formData.append('photo', this.selectedFile, filename);
+    // }
+    
 
-    if (this.selectedFile) {
-      const filename = `${this.student.studentId}-${this.selectedFile.name}`;
-      formData.append('photo', this.selectedFile, filename);
-    }
-
-    // Call the API to update student details
-    this.studentService.updateStudent(this.student.id, formData).subscribe(() => {
+    this.studentService.updateStudent(this.studentForm.value.studentId, formData).subscribe(() => {
       alert('Student updated successfully!');
-      // Optionally, upload the photo if it's selected
-      if (this.selectedFile) {
-        this.uploadPhoto();
-      }
+      //upload the photo if it's selected
+      // if (this.selectedFile) {
+      //   this.uploadPhoto();
+      // }
     });
   }
 
-  // Upload student photo after updating
   uploadPhoto(): void {
     if (!this.selectedFile) return;
-
     const formData = new FormData();
-    formData.append('photo', this.selectedFile, this.selectedFile.name);
+    formData.append('file', this.selectedFile, this.selectedFile.name);
 
-    this.studentService.uploadStudentPhoto(this.student.id, formData).subscribe(() => {
+    this.studentService.uploadStudentPhoto(this.studentForm.value.studentId, formData).subscribe((response) => {
+      console.log("response",response)
+      this.studentForm.value.photoPath=response.data;
       alert('Student photo uploaded successfully!');
     });
   }
 
-  // Soft delete the student (mark as inactive)
+  loadFile(path:String){
+    this.studentService.loadStudentPhoto(this.studentForm.value.photoPath).subscribe((response) => {
+      // console.log("response",response)
+      // this.studentPhoto=response;
+      this.studentPhoto = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(response));
+    });
+  }
+    
+
   deleteStudent(): void {
     if (confirm('Are you sure you want to delete this student?')) {
-      this.studentService.softDeleteStudent(this.student.id).subscribe(() => {
+      this.studentService.softDeleteStudent(this.studentForm.value.studentId).subscribe(() => {
         alert('Student deleted successfully!');
       });
     }

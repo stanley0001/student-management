@@ -10,7 +10,6 @@ import { PasswordChange } from './auth/changePasswordRequest';
   providedIn: 'root'
 })
 export class HttpService {
- 
   private ApiUrl = "http://localhost:8086/api/v2";
 
   constructor(private http: HttpClient) {}
@@ -75,14 +74,28 @@ export class HttpService {
 
   }
   updateStudent(id: any, formData: FormData): Observable<ResponseModel> {
-    return this.http.put<ResponseModel>(`${this.ApiUrl}/students/${id}`,formData);
+    const formValues: any = {};
+        formData.forEach((value, key) => {
+        formValues[key] = value;
+    });
+    return this.http.put<ResponseModel>(`${this.ApiUrl}/students/${id}`,formValues);
   }
   getStudentById(id: string) : Observable<ResponseModel>{
     let params = new HttpParams()
     .set('studentId', id);
     return this.http.get<ResponseModel>(`${this.ApiUrl}/students`, { params });
   }
-  uploadStudentPhoto(id: number, formData: FormData) : Observable<ResponseModel>{
-    throw new Error('Method not implemented.');
+
+  uploadStudentPhoto(id: number, formData: FormData): Observable<ResponseModel> {
+    return this.http.post<ResponseModel>(`${this.ApiUrl}/files/upload/student-photo/${id}`, formData);
   }
+  loadStudentPhoto(photoPath: any): Observable<Blob> {
+    let params = new HttpParams().set('path', photoPath);
+  
+    return this.http.get<Blob>(`${this.ApiUrl}/files/view/student-photo`, {
+      params,
+      responseType: 'blob' as 'json' 
+    });
+  }
+  
 }
